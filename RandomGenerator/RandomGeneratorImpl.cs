@@ -5,35 +5,34 @@ namespace RandomGenerator
 {
     public class RandomGeneratorImpl : IRandomGenerator
     {
-        private readonly double[] _distribution;
-        private readonly Random r;
+        private readonly double[] _cumulative;
+        private readonly Random _r;
 
         public RandomGeneratorImpl(double[] distribution)
         {
-            _distribution = new double[distribution.Length];
-            r = new Random();
+            _cumulative = new double[distribution.Length];
             Normalize(distribution);
+            _r = new Random();
         }
 
         private void Normalize(double[] distribution)
         {
             double total = distribution.Sum();
-
+            double sum = 0.0;
             for (int i = 0; i < distribution.Length; i++)
             {
-                _distribution[i] = distribution[i] / total;
+                sum += distribution[i] / total;
+                _cumulative[i] = sum;
             }
         }
 
         public int Generate()
         {            
-            double diceRoll = r.NextDouble();
-            double cumulative = 0.0;
+            double diceRoll = _r.NextDouble();
 
-            for (int i = 0; i < _distribution.Length; i++)
+            for (int i = 0; i < _cumulative.Length; i++)
             {
-                cumulative += _distribution[i];
-                if (diceRoll < cumulative)
+                if (diceRoll < _cumulative[i])
                 {
                     return i;
                 }
