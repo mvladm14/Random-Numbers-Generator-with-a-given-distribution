@@ -24,6 +24,9 @@ namespace RandomGenerator
                 sum += distribution[i] / total;
                 _cumulative[i] = sum;
             }
+
+            if (_cumulative[distribution.Length - 1] > 0.0)
+                _cumulative[distribution.Length - 1] = 1.0;
         }
 
         public int Generate()
