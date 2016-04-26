@@ -17,3 +17,7 @@ Output: a number between 0 and 4 with equal probabilities
 ● Input: [2.0, 0.0, 2.0],
 
 Output: 0 with probability ½ and 2 with probability ½ (1 should not be generated)
+
+## HOW TO TEST
+
+Run the tests from the RandomGeneratorImplTest class, which resides inside the RandomGeneratorTest project.
